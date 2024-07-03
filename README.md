@@ -19,7 +19,7 @@ We expect your directory tree will be something like:
 /workspace/OPS-INSTALL
 ```
 
-The `tunner` should be put right under the `/workspace/OPS/apps/c`
+This `ops-mini-tunner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie on somewhere else)
 
 ## How to run
 
@@ -42,5 +42,6 @@ Try `./script.sh help` for the script usage advice.
 # Example 2, running full tunning for cloverleaf_tiled 
 ./script.sh 0 cloverleaf_tiled ../CloverLeaf/ /usr/bin/mpicxx
 ```
+
 
 `<example_name>_minimal.py` is coded in a fixed path, which means you might occur errors while running the mini tunning demo, try change the hyperparameters if needed.
