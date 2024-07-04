@@ -11,12 +11,14 @@ The tuning examples mostly refer to [opentuner-gccflages](https://github.com/jan
 We expect your directory tree will be something like:
 
 ```shell
-/workspace/OPS/
-|-/workspace/OPS/apps/
-|-/workspace/OPS/apps/c/
-|-/workspace/OPS/apps/c/...# (all the top directories for OPS running examples)
-
-/workspace/OPS-INSTALL
+. # (Your workspace)
+├──OPS-INSTALL
+├──OPS 
+│   ├──apps 
+│   │   ├──fortran
+│   │   ├──c 
+│   │   │  ├──access 
+│   │   │  ├──...# (other top directories for OPS running examples)
 ```
 
 This `ops-mini-tuner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie somewhere else)
