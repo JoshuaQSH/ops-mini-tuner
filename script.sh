@@ -8,7 +8,7 @@ help_and_clean() {
 		echo "Default running Opentunner mini demo: True (input 0 to run the full flags)"
 		echo "Default make file name: cloverleaf_tiled (hints: [cloverleaf_tiled, tealeaf_tiled, laplace2d_tiled])"
 		echo "Default Makefile Location: ../CloverLeaf/"
-		echo "Default compiling_command: /usr/bin/mpicxx (it should repalce to your own mpicxx or gcc/g++)"
+		echo "Default compiling_command: /usr/bin/mpicxx (it should replace to your own mpicxx or gcc/g++)"
 		exit 1
 	
 	elif [ "$1" == "clean" ]
@@ -28,7 +28,7 @@ help_and_clean() {
 	
 	elif [ "$1" == "cleanall" ]
 	then
-		echo "Clean all files (*.in, *.out, *.json), recover to the very begining stage"
+		echo "Clean all files (*.in, *.out, *.json), recover to the very beginning stage"
 	    if compgen -G "*.in" > /dev/null; then
 			rm -f *.in
 		fi
@@ -68,7 +68,7 @@ then
 	fi
 fi
 
-# laplace2d requires to clean the exe first, assuming all others are the same
+# laplace2d requires cleaning the exe first, assuming all others are the same
 make clean -C $MAKEPATH
 TARGET=$(make -n $FILENAME -C $MAKEPATH)
 rest_of_target=$(echo $TARGET | awk -v cc="$CC" '{sub(".*" cc, ""); print}')
@@ -80,7 +80,7 @@ if [ -z "$rest_of_target" ]; then
     exit 1
 fi
 
-# A hack for the kernels, serving as one of the passing parameters for tuning full programme
+# A hack for the kernels, serving as one of the passing parameters for tuning the full programme
 kernels=$(echo "")
 
 # Extracting the required flags with `-`, omit the O[0-3] as opentuner will tune automatically
@@ -118,7 +118,7 @@ json_content=$(jq -n \
 echo $json_content > $JSONFILE
 echo $JSONFILE Saved!
 
-## Run the Opentunner file
+## Run the Opentuner file
 if [ $RUNMINI = 1 ]
 then
 	echo "----- Running the minimal tuning for $FILENAME -----"
