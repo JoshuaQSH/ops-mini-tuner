@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
-# Autotune flags to mpicxx to optimize the performance of clover_leaf_cpu_kernels.cpp 
+# Autotune flags to mpicxx to optimize the performance of laplaced2d (step 7)
 #
-# This is meant to be only for tutorial, refer to opentuner gccflags_minimal.py
+# This is meant to be only for the tutorial, refer to opentuner gccflags_minimal.py
 #
 
 import opentuner
@@ -94,7 +94,7 @@ class MpicxxFlagsTuner(MeasurementInterface):
 
     def run_precompiled(self, desired_result, input, limit, compile_result, id):
         """
-        Run a compile_result from compile() sequentially and return performance
+        Run a compile_result from compile() sequentially and return the performance
         """
         assert compile_result['returncode'] == 0
 
