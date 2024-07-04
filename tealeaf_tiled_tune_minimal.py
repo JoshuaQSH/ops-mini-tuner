@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
-# Autotune flags to mpicxx to optimize the performance of clover_leaf_cpu_kernels.cpp 
+# Autotune flags to mpicxx to optimize the performance of tealeaf example
 #
-# This is meant to be only for tutorial, refer to opentuner gccflags_minimal.py
+# This is meant to be only for the tutorial, refer to opentuner gccflags_minimal.py
 #
 
 import opentuner
@@ -46,7 +46,7 @@ class MpicxxFlagsTuner(MeasurementInterface):
     
     def save_final_config(self, configuration):
         print("Optimal paramters saved to ", SAVEFILES)
-        print("Best paramters: ", configuration.data)
+        print("Best parameters: ", configuration.data)
         self.manipulator().save_to_file(configuration.data, SAVEFILES)
         
     def manipulator(self):
@@ -94,7 +94,7 @@ class MpicxxFlagsTuner(MeasurementInterface):
 
     def run_precompiled(self, desired_result, input, limit, compile_result, id):
         """
-        Run a compile_result from compile() sequentially and return performance
+        Run a compile_result from compile() sequentially and return the performance
         """
         assert compile_result['returncode'] == 0
 
