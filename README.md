@@ -1,11 +1,11 @@
-## Mini-tunner for OPS benchmarking
+## Mini-tuner for OPS benchmarking
 
-Notes: now only support tiled files, haven't evaluted the others yet.
-The tuning examples mostly refers to [opentuner-gccflages](https://github.com/jansel/opentuner/tree/567c48bc3cc66a178fc5462ecc58dd48670bbbf9/examples/gccflags)
+Notes: now only support tiled files, haven't evaluated the others yet.
+The tuning examples mostly refer to [opentuner-gccflages](https://github.com/jansel/opentuner/tree/567c48bc3cc66a178fc5462ecc58dd48670bbbf9/examples/gccflags)
 
 ## Prerequest
 
-- Install opentuner (see: [OpenTuner](https://github.com/jansel/opentuner/tree/567c48bc3cc66a178fc5462ecc58dd48670bbbf9) Installation part)
+- Install Opentuner (see: [OpenTuner](https://github.com/jansel/opentuner/tree/567c48bc3cc66a178fc5462ecc58dd48670bbbf9) Installation part)
 - Install OPS from source (see: [OP-DSL](https://github.com/OP-DSL/OPS))
 
 We expect your directory tree will be something like:
@@ -14,12 +14,12 @@ We expect your directory tree will be something like:
 /workspace/OPS/
 |-/workspace/OPS/apps/
 |-/workspace/OPS/apps/c/
-|-/workspace/OPS/apps/c/...(all the top directories for OPS running examples)
+|-/workspace/OPS/apps/c/...# (all the top directories for OPS running examples)
 
 /workspace/OPS-INSTALL
 ```
 
-This `ops-mini-tunner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie on somewhere else)
+This `ops-mini-tuner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie somewhere else)
 
 ## How to run
 
@@ -29,11 +29,11 @@ Try `./script.sh help` for the script usage advice.
 # Clean all the opentuner tmp files
 ./script.sh clean 
 
-# Clean all the *.in *.out and *.json files, if you run are running the full tuning for the first time, try to do that first, 
-# it gives you a clean environment and also allow opentuner to test each of working compiling flags
+# Clean all the *.in *.out and *.json files, if you are running the full tuning for the first time, try to do that first, 
+# it gives you a clean environment and also allows opentuner to test each of the working compiling flags
 ./script.sh cleanall
 
-# Run with each examples
+# Run with each example
 ./script.sh [<if_running_minitune>] [<make_name>] [<Makefile_path>] [<compiling_command>]
 
 # Example 1, running a mini tunning demo for cloverleaf_tiled [default]
@@ -44,4 +44,4 @@ Try `./script.sh help` for the script usage advice.
 ```
 
 
-`<example_name>_minimal.py` is coded in a fixed path, which means you might occur errors while running the mini tunning demo, try change the hyperparameters if needed.
+`<example_name>_minimal.py` is coded in a fixed path, which means you might encounter errors while running the mini tunning demo, try changing the hyperparameters if needed.
