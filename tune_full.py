@@ -30,7 +30,7 @@ log = logging.getLogger('gccflags')
 argparser = argparse.ArgumentParser(parents=opentuner.argparsers())
 # source should be a json file
 argparser.add_argument('source', help='source file to compile')
-argparser.add_argument('--run-dir', default='{}'.format(os.getcwd() + '/../'), help='A workspace that includes the to-be-compilerd files (e.g. /path/to/OPS/apps/c/CloverLeaf)')
+argparser.add_argument('--run-dir', default='{}'.format(os.getcwd() + '/../'), help='A workspace that includes the to-be-compiled files (e.g. /path/to/OPS/apps/c/CloverLeaf)')
 # A template should include a -I include_path, -L linked path
 # -fPIC -Wall -ffloat-store -g -std=c++11 -fopenmp -Dgnu -DOPS_LAZY -lops_seq
 # -I.. -I~/OPS-INSTALL/ops/c/include 
@@ -51,7 +51,7 @@ argparser.add_argument('--early-time', type=float, default=0.00001, help="An ear
 argparser.add_argument('--output', default='./tmp.bin',
                        help='temporary file for compiler to write to')
 argparser.add_argument('--debug', action='store_true',
-                       help='on compiler errors try to find minimal set of args to reproduce error')
+                       help='on compiler errors try to find the minimal set of args to reproduce error')
 argparser.add_argument('--force-killall', action='store_true',
                        help='killall compiler processes before each collection')
 argparser.add_argument('--memory-limit', default=1024 ** 3, type=int,
@@ -61,7 +61,7 @@ argparser.add_argument('--no-cached-flags', action='store_true',
 argparser.add_argument('--flags-histogram', action='store_true',
                        help='print out a histogram of flags')
 argparser.add_argument('--flag-importance',
-                       help='Test the importance of different flags from a given json file.')
+                       help='Test the importance of different flags from a given JSON file.')
 
 def read_json_file(args):
     temp_out = []
@@ -95,7 +95,7 @@ class CloverLeafFlagsTuner(opentuner.measurement.MeasurementInterface):
         self.cc_flags = self.extract_working_flags()
         self.cc_param_defaults = self.extract_param_defaults()
         self.cc_params = self.extract_working_params()
-        # No need to hardcoed the cc_bugs here, just to be consistent with the tutorial
+        # No need to hardcode the cc_bugs here, just to be consistent with the tutorial
         self.cc_bugs = (['-time'])
         self.result_list = {}
         self.parallel_compile = True
