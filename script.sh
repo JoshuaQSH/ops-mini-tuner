@@ -89,13 +89,13 @@ flags=$(echo $rest_of_target | grep -oP ' -[^ILo]\S*' | grep -Ev ' -O[0-3]')
 
 # Extracting the include path with `-I`
 ESCAPEDPATH=$(echo "$MAKEPATH" | sed 's/\//\\\//g')
-include_paths=$(echo $rest_of_target | grep -oP ' -I\S+')
+include_paths=$(echo "$rest_of_target" | grep -oP ' -I\S+')
 include_paths_array=($(echo "$include_paths" | sed 's/^ *//;s/ *$//' | sed "s/^-I.$/-I$ESCAPEDPATH/"))
 # echo "Include paths: $include_paths"
 
 # Extracting the directory dir with `-L`
 directories=$(echo $rest_of_target | grep -oP ' -L\S+')
-directories_array=($(echo "$directories" | sed 's/^ *//;s/ *$//'))
+directories_array=($(echo "$directories" | sed 's/^ *//;s/ *$//' | sed "s/^-L.$/-L$ESCAPEDPATH/"))
 # echo "Directories: $directories"
 
 # Extracting the linking files (anything without `-` before it, and not starting with a `/`)
@@ -107,16 +107,22 @@ linking_files_array=($(echo "$linking_files" | sed 's/^ *//;s/ *$//'))
 output_file=$(echo $rest_of_target | grep -oP ' -o \K\S+')
 # echo "Output file: $output_file"
 
-# Write to JSON file
-json_content=$(jq -n \
-    --argjson kernel_files "$(printf '%s\n' "${kernels[@]}" | jq -R . | jq -s .)" \
-    --argjson basic_params "$(printf '%s' "${flags[@]}" | jq -R . | jq -s .)" \
-    --argjson include_path "$(printf '%s\n' "${include_paths_array[@]}" | jq -R . | jq -s .)" \
-    --argjson linking_path "$(printf '%s\n' "${directories_array[@]}" | jq -R . | jq -s .)" \
-    --argjson linking_files "$(printf '%s\n' "${linking_files_array[@]}" | jq -R . | jq -s .)" \
-    '{kernel_files: $kernel_files, basic_params: $basic_params, include_path: $include_path, linking_path: $linking_path, linking_files: $linking_files}')
-echo $json_content > $JSONFILE
-echo $JSONFILE Saved!
+if command -v jq &> /dev/null
+then
+	# Write to JSON file
+	json_content=$(jq -n \
+		--argjson kernel_files "$(printf '%s\n' "${kernels[@]}" | jq -R . | jq -s .)" \
+		--argjson basic_params "$(printf '%s' "${flags[@]}" | jq -R . | jq -s .)" \
+		--argjson include_path "$(printf '%s\n' "${include_paths_array[@]}" | jq -R . | jq -s .)" \
+		--argjson linking_path "$(printf '%s\n' "${directories_array[@]}" | jq -R . | jq -s .)" \
+		--argjson linking_files "$(printf '%s\n' "${linking_files_array[@]}" | jq -R . | jq -s .)" \
+		'{kernel_files: $kernel_files, basic_params: $basic_params, include_path: $include_path, linking_path: $linking_path, linking_files: $linking_files}')
+	echo $json_content > $JSONFILE
+	echo $JSONFILE Saved!
+else
+	python3 create_json.py "${kernels[@]}" "${flags[@]}" "${include_paths[@]}" "${directories[@]}" "${linking_files[@]}" "${JSONFILE}" "${MAKEPATH}"
+	echo $JSONFILE Saved!
+fi
 
 ## Run the Opentuner file
 if [ $RUNMINI = 1 ]
