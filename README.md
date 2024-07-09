@@ -21,7 +21,10 @@ We expect your directory tree will be something like:
 │   │   │  ├──...# (other top directories for OPS running examples)
 ```
 
-This `ops-mini-tuner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie somewhere else)
+This `ops-mini-tuner` should be put right under the `/workspace/OPS/apps/c` (should be fine if you want it to lie somewhere else). We also offer a python script for those machines that do not have `jq` installed. So far, the script may still have some issues:
+
+- We only deal with one relative path at the moment, e.g. flags like `-I.` or `-L.`. For others like `-I..` are not well handled. Double check the paths if the tunning goes wrong.
+- The `kernel_files` in `*.json` is a hack for the time being. A customized function should be offered in the future to handle multi-kernels compiling cases. 
 
 ## How to run
 
